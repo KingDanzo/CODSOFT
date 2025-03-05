@@ -1,4 +1,7 @@
-let tasks = [];
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
 
 function addTask() {
     const taskInput = document.getElementById('taskInput');
@@ -6,7 +9,7 @@ function addTask() {
 
     if (taskText === '') return; // Don't add empty tasks
 
-    tasks.push(taskText);
+    tasks.push(taskText); saveTasks();
     taskInput.value = ''; // Clear input field
     renderTasks();
 }
@@ -26,6 +29,6 @@ function renderTasks() {
 }
 
 function deleteTask(index) {
-    tasks.splice(index, 1);
+    tasks.splice(index, 1); saveTasks();
     renderTasks();
 }
